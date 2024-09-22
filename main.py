@@ -7,9 +7,10 @@ url = "https://newsapi.org/v2/top-headlines?sources=" \
 
 request = requests.get(url)
 content = request.json() #turns into a dictionary
-message = ""
+message = "Subject: Today's News"
 for article in content["articles"]:
-    message += article["title"] + "\n" + article["description"] + "\n" + article["url"] + "\n\n"
+    if article["title"] is not None:
+        message += "\n" + article["title"] + "\n" + article["description"] + "\n" + article["url"] + "\n"
     
 message = message.encode("utf-8")
 send_email(message)
